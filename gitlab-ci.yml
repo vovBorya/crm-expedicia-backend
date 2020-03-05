@@ -6,7 +6,7 @@ stages:
 maven-build:
   image: maven:latest
   stage: build
-  script: "mvn package -B"
+  script: "mvn package spring-boot:repackage"
 
 maven-test:
   image: maven:latest
