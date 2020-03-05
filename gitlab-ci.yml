@@ -4,12 +4,12 @@ stages:
   - deploy
 
 maven-build:
-  image: maven:latest
+  image: openjdk:8-jdk-alpine
   stage: build
   script: "mvn package spring-boot:repackage"
 
 maven-test:
-  image: maven:latest
+  image: openjdk:8-jdk-alpine
   stage: test
   script: "mvn test -B"
 
