@@ -1,15 +1,19 @@
+image: docker:latest
+services:
+  - docker:dind
+
 stages:
   - build
   - test
   - deploy
 
 maven-build:
-  image: openjdk:8-jdk-alpine
+  image: maven:latest
   stage: build
-  script: "mvn package spring-boot:repackage"
+  script: "mvn package -B"
 
 maven-test:
-  image: openjdk:8-jdk-alpine
+  image: maven:latest
   stage: test
   script: "mvn test -B"
 
