@@ -18,3 +18,5 @@ campground
 ## Run with Docker
 1. Install docker [from here](https://docs.docker.com/install/)
 2. Run from project folder `docker-compose up`
+3. Application serve at `http://localhost:8888`
+4. Database will be host at `localhost:3333`
