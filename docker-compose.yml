@@ -2,6 +2,7 @@ version: '3'
 services:
   mysql:
     image: mysql
+    container_name: crm-backend-mysql
     ports:
       - '3333:3306'
     command: --default-authentication-plugin=mysql_native_password
@@ -10,7 +11,7 @@ services:
       - MYSQL_DATABASE=crm_production
 
   server:
-    build: .
+    image: registry.gitlab.com/crm-expedicia/backend:latest
     container_name: crm-backend
     ports:
       - '8888:8080'
