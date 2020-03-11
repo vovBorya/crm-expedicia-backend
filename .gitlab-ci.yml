@@ -3,6 +3,7 @@ image: maven:latest
 stages:
   - build
   - test
+  - build_image
   - deploy
 
 maven-build:
@@ -14,6 +15,18 @@ maven-test:
   image: maven:latest
   stage: test
   script: "mvn test -B"
+
+build-image:
+  image: docker:latest
+  stage: build_image
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA --tag $CI_REGISTRY_IMAGE:latest .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    - docker push $CI_REGISTRY_IMAGE:latest
+#  only:
+#    - master
 
 deploy:
   stage: deploy
