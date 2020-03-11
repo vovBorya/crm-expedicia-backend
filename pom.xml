@@ -74,12 +74,6 @@
 					<processTypes>
 						<web>java -Dserver.port=$PORT $JAVA_OPTS -jar target/crm*.jar</web>
 					</processTypes>
-					<archive>
-            <manifest>
-              <addClasspath>true</addClasspath>
-              <mainClass>ua.od.onpu.crm.CrmApplication</mainClass>
-            </manifest>
-          </archive>
 				</configuration>
 			</plugin>
 		</plugins>
