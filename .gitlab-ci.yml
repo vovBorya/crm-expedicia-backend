@@ -1,23 +1,47 @@
 image: maven:latest
 
+services:
+  - mysql:latest
+
+variables:
+  # Configure mysql environment variables (https://hub.docker.com/_/mysql/)
+  MYSQL_DATABASE: "crm-test"
+  MYSQL_ROOT_PASSWORD: "crm-test-pass"
+
 stages:
   - build
   - test
+  - build_image
   - deploy
 
 maven-build:
   image: maven:latest
   stage: build
-  script: "mvn package -B"
+  script: "mvn package -B -Ptest"
 
 maven-test:
   image: maven:latest
   stage: test
-  script: "mvn test -B"
+  script: "mvn test -B -Ptest"
+
+build-image:
+  image: docker:19.03.1
+  services:
+    - docker:19.03.1-dind
+  stage: build_image
+  script:
+    - export BUILD_VERSION=$(date +"%Y.%m.%d-${CI_COMMIT_SHA:(-6)}")
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$BUILD_VERSION --tag $CI_REGISTRY_IMAGE:latest .
+    - docker push $CI_REGISTRY_IMAGE:$BUILD_VERSION
+    - docker push $CI_REGISTRY_IMAGE:latest
+  only:
+    - master
 
 deploy:
   stage: deploy
   image: maven:latest
-  script: "mvn clean heroku:deploy"
+  script: "mvn clean heroku:deploy -Pprod"
   only:
-  - master
+    - master
