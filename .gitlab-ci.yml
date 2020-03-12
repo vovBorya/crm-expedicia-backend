@@ -1,5 +1,13 @@
 image: maven:latest
 
+services:
+  - mysql:latest
+
+variables:
+  # Configure mysql environment variables (https://hub.docker.com/_/mysql/)
+  MYSQL_DATABASE: "crm-test"
+  MYSQL_ROOT_PASSWORD: "crm-test-pa$$"
+
 stages:
   - build
   - test
@@ -9,12 +17,12 @@ stages:
 maven-build:
   image: maven:latest
   stage: build
-  script: "mvn package -B -Pprod"
+  script: "mvn package -B -Ptest"
 
 maven-test:
   image: maven:latest
   stage: test
-  script: "mvn test -B -Pprod"
+  script: "mvn test -B -Ptest"
 
 build-image:
   image: docker:19.03.1
@@ -36,4 +44,4 @@ deploy:
   image: maven:latest
   script: "mvn clean heroku:deploy -Pprod"
   only:
-  - master
+    - master
