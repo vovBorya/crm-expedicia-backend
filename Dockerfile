@@ -7,6 +7,4 @@ WORKDIR $HOME_PATH
 
 COPY . /app/.
 
-RUN mvn clean package
-
-EXPOSE 8080 22
+EXPOSE 8080 8888 22

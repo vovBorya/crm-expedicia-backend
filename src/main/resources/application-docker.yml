@@ -1,0 +1,1 @@
+dbUrl: 'jdbc:mysql://root:root_pass@mysql:3306/crm_production'
