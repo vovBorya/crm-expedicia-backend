@@ -6,7 +6,7 @@ services:
 variables:
   # Configure mysql environment variables (https://hub.docker.com/_/mysql/)
   MYSQL_DATABASE: "crm-test"
-  MYSQL_ROOT_PASSWORD: "crm-test-pa$$"
+  MYSQL_ROOT_PASSWORD: "crm-test-pass"
 
 stages:
   - build
