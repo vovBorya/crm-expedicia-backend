@@ -11,8 +11,8 @@ services:
       - MYSQL_DATABASE=crm_production
 
   server:
-    build: .
-#    image: registry.gitlab.com/crm-expedicia/backend:latest
+    # build: .
+    image: registry.gitlab.com/crm-expedicia/backend:latest
     container_name: crm-backend
     ports:
       - '8888:8080'
