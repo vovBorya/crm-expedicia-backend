@@ -28,8 +28,8 @@ build-image:
     - docker build --cache-from $CI_REGISTRY_IMAGE:latest --tag $CI_REGISTRY_IMAGE:$BUILD_VERSION --tag $CI_REGISTRY_IMAGE:latest .
     - docker push $CI_REGISTRY_IMAGE:$BUILD_VERSION
     - docker push $CI_REGISTRY_IMAGE:latest
-#  only:
-#    - master
+  only:
+    - master
 
 deploy:
   stage: deploy
