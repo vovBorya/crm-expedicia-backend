@@ -8,16 +8,16 @@ stages:
 maven-build:
   image: maven:latest
   stage: build
-  script: "mvn package -B"
+  script: "mvn package -B -Pprod"
 
 maven-test:
   image: maven:latest
   stage: test
-  script: "mvn test -B"
+  script: "mvn test -B -Pprod"
 
 deploy:
   stage: deploy
   image: maven:latest
-  script: "mvn clean heroku:deploy"
+  script: "mvn clean heroku:deploy -Pprod"
   only:
   - master
