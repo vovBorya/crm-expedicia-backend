@@ -7,7 +7,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ua.od.onpu.crm.config.GlobalConfig;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -21,7 +29,7 @@ public class Manager {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_manager")
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "last_name", length = 40)
@@ -43,7 +51,7 @@ public class Manager {
     @Column(name = "salary")
     private int salary;
 
-    @Column(name = "email_address", length = 50)
+    @Column(name = "email_address", length = 70)
     private String email;
 
     @OneToMany(
