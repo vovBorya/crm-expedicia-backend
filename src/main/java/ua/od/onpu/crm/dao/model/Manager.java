@@ -56,9 +56,8 @@ public class Manager {
 
     @OneToMany(
             mappedBy = "manager",
-            cascade = {CascadeType.REMOVE, CascadeType.REFRESH},
-            fetch = FetchType.LAZY,
-            orphanRemoval = true
+            cascade = CascadeType.REFRESH,
+            fetch = FetchType.LAZY
     )
     private Set<Deal> deals;
 }

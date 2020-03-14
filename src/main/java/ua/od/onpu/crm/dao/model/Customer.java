@@ -43,16 +43,16 @@ public class Customer {
 
     @OneToMany(
             mappedBy = "parent",
-            cascade = {CascadeType.REMOVE, CascadeType.REFRESH},
-            fetch = FetchType.LAZY,
-            orphanRemoval = true
+            cascade = CascadeType.REFRESH,
+            fetch = FetchType.LAZY
     )
     private Set<Child> children;
 
     @OneToMany(
             mappedBy = "customer",
-            cascade = {CascadeType.REFRESH},
-            fetch = FetchType.LAZY
+            cascade = {CascadeType.REMOVE, CascadeType.REFRESH},
+            fetch = FetchType.LAZY,
+            orphanRemoval = true
     )
     private Set<Deal> deals;
 

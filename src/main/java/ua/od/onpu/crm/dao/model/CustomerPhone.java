@@ -34,6 +34,6 @@ public class CustomerPhone {
 
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "customers_id")
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 }

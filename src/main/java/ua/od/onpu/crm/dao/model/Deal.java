@@ -60,4 +60,7 @@ public class Deal {
             cascade = CascadeType.REFRESH)
     @JoinColumn(name = "expedition_id")
     private Expedition expedition;
+
+    @Column(name = "sleeping_bag")
+    private Boolean sleepingBag;
 }
