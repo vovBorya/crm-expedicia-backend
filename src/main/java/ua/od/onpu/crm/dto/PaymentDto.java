@@ -7,24 +7,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ua.od.onpu.crm.config.GlobalConfig;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ChildDto {
+public class PaymentDto {
 
     private Integer id;
 
-    private String lastName;
+    @JsonFormat(pattern = GlobalConfig.DATE_FORMAT_PATTERN_WITH_TIME)
+    private LocalDateTime paid_at;
 
-    private String firstName;
-
-    private String patronymic;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = GlobalConfig.DATE_FORMAT_PATTERN)
-    private LocalDate birthday;
-
-    private Integer parentId;
+    private Integer dealId;
 }

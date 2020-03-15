@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ChildDto {
+public class ManagerDto {
 
     private Integer id;
 
@@ -23,8 +23,12 @@ public class ChildDto {
 
     private String patronymic;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = GlobalConfig.DATE_FORMAT_PATTERN)
+    @JsonFormat(pattern = GlobalConfig.DATE_FORMAT_PATTERN)
     private LocalDate birthday;
 
-    private Integer parentId;
+    private String phone;
+
+    private int salary;
+
+    private String email;
 }
