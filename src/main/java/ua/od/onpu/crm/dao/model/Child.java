@@ -1,10 +1,7 @@
 package ua.od.onpu.crm.dao.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import ua.od.onpu.crm.config.GlobalConfig;
 
 
@@ -25,9 +22,11 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(exclude = "id")
 @Entity
 @Table(name = "children")
+@Builder
 public class Child {
 
     @Id
