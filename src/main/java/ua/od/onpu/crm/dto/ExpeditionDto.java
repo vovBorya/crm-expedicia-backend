@@ -9,15 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CustomerDto {
+public class ExpeditionDto {
 
     private Integer id;
 
-    private String lastName;
+    private String location;
 
-    private String firstName;
-
-    private String patronymic;
-
-    private String email;
+    private String abbreviation;
 }
