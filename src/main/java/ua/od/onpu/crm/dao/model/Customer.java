@@ -1,5 +1,8 @@
 package ua.od.onpu.crm.dao.model;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,9 +22,11 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = "id")
+@AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "customers")
+@Builder
 public class Customer {
 
     @Id

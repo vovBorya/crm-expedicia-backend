@@ -1,6 +1,8 @@
 package ua.od.onpu.crm.dao.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,9 +24,11 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
 @Entity
 @Table(name = "payments")
+@Builder
 public class Payment {
 
     @Id
@@ -34,7 +38,7 @@ public class Payment {
 
     @Column(name = "paid_at")
     @JsonFormat(pattern = GlobalConfig.DATE_FORMAT_PATTERN_WITH_TIME)
-    private LocalDateTime paid_at;
+    private LocalDateTime paidAt;
 
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.REFRESH)
