@@ -18,7 +18,7 @@ public class PaymentDto {
     private Integer id;
 
     @JsonFormat(pattern = GlobalConfig.DATE_FORMAT_PATTERN_WITH_TIME)
-    private LocalDateTime paid_at;
+    private LocalDateTime paidAt;
 
     private Integer dealId;
 }

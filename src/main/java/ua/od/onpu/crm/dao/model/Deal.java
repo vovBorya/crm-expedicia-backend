@@ -24,7 +24,7 @@ import javax.persistence.Table;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = "id")
+@EqualsAndHashCode
 @Entity
 @Table(name = "deals")
 @Builder

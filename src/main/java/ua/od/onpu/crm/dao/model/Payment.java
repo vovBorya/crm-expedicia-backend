@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = "id")
+@EqualsAndHashCode
 @Entity
 @Table(name = "payments")
 @Builder
@@ -38,7 +38,7 @@ public class Payment {
 
     @Column(name = "paid_at")
     @JsonFormat(pattern = GlobalConfig.DATE_FORMAT_PATTERN_WITH_TIME)
-    private LocalDateTime paid_at;
+    private LocalDateTime paidAt;
 
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.REFRESH)

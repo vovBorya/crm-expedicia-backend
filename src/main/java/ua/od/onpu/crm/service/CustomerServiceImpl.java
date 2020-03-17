@@ -8,11 +8,11 @@ import ua.od.onpu.crm.dao.repository.CustomerRepository;
 import ua.od.onpu.crm.dto.CustomerDto;
 import ua.od.onpu.crm.exception.ResourceNotFoundException;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-@Service
 @Slf4j
+@Service
 public class CustomerServiceImpl implements CustomerService {
 
     private CustomerRepository customerRepository;
@@ -24,8 +24,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<CustomerDto> list() {
-        List<CustomerDto> list = new ArrayList<>();
-        customerRepository.findAll().forEach(i -> list.add(buildToDto(i)));
+        List<CustomerDto> list = new LinkedList<>();
+        customerRepository.findAll().forEach(customer -> list.add(buildToDto(customer)));
         return list;
     }
 
@@ -37,8 +37,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDto get(Integer id) {
-        Customer customer = customerRepository.findById(id)
-                .orElseThrow(() -> logCustomerNotFound(id));
+        Customer customer = findCustomerById(id);
         return buildToDto(customer);
     }
 
@@ -66,18 +65,18 @@ public class CustomerServiceImpl implements CustomerService {
                 .orElseThrow(() -> logCustomerNotFound(id));
     }
 
-    public static ResourceNotFoundException logCustomerNotFound(Integer id) {
+    static ResourceNotFoundException logCustomerNotFound(Integer id) {
         log.error("Customer with id = {} NOT_FOUND", id);
         return new ResourceNotFoundException("Customer with id = " + id + " NOT_FOUND");
     }
 
     private CustomerDto buildToDto(Customer customer) {
         return CustomerDto.builder()
+                .id(customer.getId())
                 .lastName(customer.getLastName())
                 .firstName(customer.getFirstName())
-                .email(customer.getEmail())
                 .patronymic(customer.getPatronymic())
-                .id(customer.getId())
+                .email(customer.getEmail())
                 .build();
     }
 

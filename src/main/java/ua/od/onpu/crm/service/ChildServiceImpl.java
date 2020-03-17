@@ -10,10 +10,11 @@ import ua.od.onpu.crm.dao.repository.CustomerRepository;
 import ua.od.onpu.crm.dto.ChildDto;
 import ua.od.onpu.crm.exception.ResourceNotFoundException;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static ua.od.onpu.crm.service.CustomerServiceImpl.logCustomerNotFound;
+
 
 @Service
 @Slf4j
@@ -30,7 +31,7 @@ public class ChildServiceImpl implements ChildService {
 
     @Override
     public List<ChildDto> list() {
-        List<ChildDto> list = new ArrayList<>();
+        List<ChildDto> list = new LinkedList<>();
         childRepository.findAll().forEach(i -> list.add(buildToDto(i)));
         return list;
     }
@@ -43,18 +44,14 @@ public class ChildServiceImpl implements ChildService {
 
     @Override
     public ChildDto get(Integer id) {
-        Child child = childRepository.findById(id)
-                .orElseThrow(() -> logChildNotFound(id));
+        Child child = findChildById(id);
         return buildToDto(child);
     }
 
     @Override
     public ChildDto update(Integer id, ChildDto childDto) {
-        Customer parent = customerRepository.findById(childDto.getParentId())
-                .orElseThrow(() -> logCustomerNotFound(id));
-
-        Child child = childRepository.findById(id)
-                .orElseThrow(() -> logChildNotFound(id));
+        Customer parent = findCustomerById(childDto.getParentId());
+        Child child = findChildById(id);
 
         child.setLastName(childDto.getLastName());
         child.setFirstName(childDto.getFirstName());
@@ -83,7 +80,7 @@ public class ChildServiceImpl implements ChildService {
                 .orElseThrow(() -> logChildNotFound(id));
     }
 
-    public static ResourceNotFoundException logChildNotFound(Integer id) {
+    static ResourceNotFoundException logChildNotFound(Integer id) {
         log.error("Child with id = {} NOT_FOUND", id);
         return new ResourceNotFoundException("Child with id = " + id + " NOT_FOUND");
     }

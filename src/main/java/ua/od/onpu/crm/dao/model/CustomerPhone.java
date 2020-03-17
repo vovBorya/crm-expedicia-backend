@@ -22,7 +22,7 @@ import javax.persistence.Table;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = "id")
+@EqualsAndHashCode
 @Entity
 @Table(name = "customer_phone_numbers")
 @Builder
