@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@RequestMapping("/api/managers")
+@RequestMapping("/api/payments")
 public class PaymentController {
 
     private PaymentService paymentService;
