@@ -1,6 +1,5 @@
 package ua.od.onpu.crm.controller;
 
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
