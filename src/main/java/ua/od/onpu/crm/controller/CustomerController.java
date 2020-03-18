@@ -1,5 +1,6 @@
 package ua.od.onpu.crm.controller;
 
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,11 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import ua.od.onpu.crm.dto.CustomerDto;
 import ua.od.onpu.crm.service.CustomerService;
 
+import javax.servlet.http.HttpServletResponse;
+
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @Slf4j
 @RequestMapping("/api/customers")
@@ -33,8 +38,11 @@ public class CustomerController {
     @GetMapping
     @ResponseBody
     @ResponseStatus(value = HttpStatus.OK)
-    public List<CustomerDto> list() {
+    public List<CustomerDto> list(HttpServletResponse httpResponse) {
         List<CustomerDto> response = customerService.list();
+        int count = response.size();
+        httpResponse.addHeader("X-Total-Count", String.format("%s", count));
+        httpResponse.addHeader("Access-Control-Expose-Headers", "*");
         log.info("GET customer: {}", response);
         return response;
     }

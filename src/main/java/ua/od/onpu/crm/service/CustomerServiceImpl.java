@@ -8,6 +8,7 @@ import ua.od.onpu.crm.dao.repository.CustomerRepository;
 import ua.od.onpu.crm.dto.CustomerDto;
 import ua.od.onpu.crm.exception.ResourceNotFoundException;
 
+import javax.annotation.Resource;
 import java.util.LinkedList;
 import java.util.List;
 
