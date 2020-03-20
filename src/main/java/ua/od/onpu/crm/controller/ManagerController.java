@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ua.od.onpu.crm.dto.ManagerDto;
 import ua.od.onpu.crm.service.ManagerService;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -33,8 +34,10 @@ public class ManagerController {
     @GetMapping
     @ResponseBody
     @ResponseStatus(value = HttpStatus.OK)
-    public List<ManagerDto> list() {
+    public List<ManagerDto> list(HttpServletResponse httpResponse) {
         List<ManagerDto> response = managerService.list();
+        httpResponse.addHeader("X-Total-Count", String.format("%s", response.size()));
+        httpResponse.addHeader("Access-Control-Expose-Headers", "X-Total-Count");
         log.info("GET managers: {}", response);
         return response;
     }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ua.od.onpu.crm.dto.PaymentDto;
 import ua.od.onpu.crm.service.PaymentService;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -33,8 +34,10 @@ public class PaymentController {
     @GetMapping
     @ResponseBody
     @ResponseStatus(value = HttpStatus.OK)
-    public List<PaymentDto> list() {
+    public List<PaymentDto> list(HttpServletResponse httpResponse) {
         List<PaymentDto> response = paymentService.list();
+        httpResponse.addHeader("X-Total-Count", String.format("%s", response.size()));
+        httpResponse.addHeader("Access-Control-Expose-Headers", "X-Total-Count");
         log.info("GET deals: {}", response);
         return response;
     }

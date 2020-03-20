@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ua.od.onpu.crm.dto.DealDto;
 import ua.od.onpu.crm.service.DealService;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -33,8 +34,10 @@ public class DealController {
     @GetMapping
     @ResponseBody
     @ResponseStatus(value = HttpStatus.OK)
-    public List<DealDto> list() {
+    public List<DealDto> list(HttpServletResponse httpResponse) {
         List<DealDto> response = dealService.list();
+        httpResponse.addHeader("X-Total-Count", String.format("%s", response.size()));
+        httpResponse.addHeader("Access-Control-Expose-Headers", "X-Total-Count");
         log.info("GET deals: {}", response);
         return response;
     }

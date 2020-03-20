@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ua.od.onpu.crm.dto.ChildDto;
 import ua.od.onpu.crm.service.ChildService;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -34,8 +35,10 @@ public class ChildController {
     @GetMapping
     @ResponseBody
     @ResponseStatus(code = HttpStatus.OK)
-    public List<ChildDto> list() {
+    public List<ChildDto> list(HttpServletResponse httpResponse) {
         List<ChildDto> response = childService.list();
+        httpResponse.addHeader("X-Total-Count", String.format("%s", response.size()));
+        httpResponse.addHeader("Access-Control-Expose-Headers", "X-Total-Count");
         log.info("GET children: {}", response);
         return response;
     }

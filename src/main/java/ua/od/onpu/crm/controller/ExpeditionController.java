@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ua.od.onpu.crm.dto.ExpeditionDto;
 import ua.od.onpu.crm.service.ExpeditionService;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -33,8 +34,10 @@ public class ExpeditionController {
     @GetMapping
     @ResponseBody
     @ResponseStatus(value = HttpStatus.OK)
-    public List<ExpeditionDto> list() {
+    public List<ExpeditionDto> list(HttpServletResponse httpResponse) {
         List<ExpeditionDto> response = expeditionService.list();
+        httpResponse.addHeader("X-Total-Count", String.format("%s", response.size()));
+        httpResponse.addHeader("Access-Control-Expose-Headers", "X-Total-Count");
         log.info("GET expeditions: {}", response);
         return response;
     }

@@ -39,9 +39,8 @@ public class CustomerController {
     @ResponseStatus(value = HttpStatus.OK)
     public List<CustomerDto> list(HttpServletResponse httpResponse) {
         List<CustomerDto> response = customerService.list();
-        int count = response.size();
-        httpResponse.addHeader("X-Total-Count", String.format("%s", count));
-        httpResponse.addHeader("Access-Control-Expose-Headers", "*");
+        httpResponse.addHeader("X-Total-Count", String.format("%s", response.size()));
+        httpResponse.addHeader("Access-Control-Expose-Headers", "X-Total-Count");
         log.info("GET customer: {}", response);
         return response;
     }
