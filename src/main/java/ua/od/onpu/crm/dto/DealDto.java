@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ua.od.onpu.crm.dao.model.Status;
+import ua.od.onpu.crm.dao.model.enums.DealStatus;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +16,7 @@ public class DealDto {
 
     private Integer sum;
 
-    private Status status;
+    private DealStatus status;
 
     private String comment;
 

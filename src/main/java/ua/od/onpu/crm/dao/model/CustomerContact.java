@@ -6,10 +6,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ua.od.onpu.crm.dao.model.enums.ContactType;
+import ua.od.onpu.crm.dao.model.enums.DealStatus;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,17 +28,21 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table(name = "customer_phone_numbers")
+@Table(name = "customer_contacts")
 @Builder
-public class CustomerPhone {
+public class CustomerContact {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "phone_number", length = 14)
-    private String phone;
+    @Column(name = "type")
+    @Enumerated(EnumType.STRING)
+    private ContactType type;
+
+    @Column(name = "content", length = 150)
+    private String content;
 
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.REFRESH)

@@ -48,7 +48,6 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setFirstName(customerDto.getFirstName());
         customer.setLastName(customerDto.getLastName());
         customer.setPatronymic(customerDto.getPatronymic());
-        customer.setEmail(customerDto.getEmail());
         Customer response = customerRepository.save(customer);
         return buildToDto(response);
     }
@@ -76,7 +75,6 @@ public class CustomerServiceImpl implements CustomerService {
                 .lastName(customer.getLastName())
                 .firstName(customer.getFirstName())
                 .patronymic(customer.getPatronymic())
-                .email(customer.getEmail())
                 .build();
     }
 
@@ -85,7 +83,6 @@ public class CustomerServiceImpl implements CustomerService {
                 .firstName(customerDto.getFirstName())
                 .lastName(customerDto.getLastName())
                 .patronymic(customerDto.getPatronymic())
-                .email(customerDto.getEmail())
                 .build();
     }
 }

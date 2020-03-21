@@ -13,54 +13,54 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import ua.od.onpu.crm.dto.CustomerPhoneDto;
-import ua.od.onpu.crm.service.CustomerPhoneService;
+import ua.od.onpu.crm.dto.CustomerContactDto;
+import ua.od.onpu.crm.service.CustomerContactService;
 
 @RestController
 @Slf4j
-@RequestMapping("/api/phones")
-public class CustomerPhoneController {
+@RequestMapping("/api/contacts")
+public class CustomerContactController {
 
-    private CustomerPhoneService customerPhoneService;
+    private CustomerContactService customerContactService;
 
     @Autowired
-    public CustomerPhoneController(CustomerPhoneService customerPhoneService) {
-        this.customerPhoneService = customerPhoneService;
+    public CustomerContactController(CustomerContactService customerContactService) {
+        this.customerContactService = customerContactService;
     }
 
     @PostMapping
     @ResponseBody
     @ResponseStatus(value = HttpStatus.CREATED)
-    public CustomerPhoneDto create(@RequestBody CustomerPhoneDto request) {
-        CustomerPhoneDto response = customerPhoneService.create(request);
-        log.info("CREATE customer phone {}", response);
+    public CustomerContactDto create(@RequestBody CustomerContactDto request) {
+        CustomerContactDto response = customerContactService.create(request);
+        log.info("CREATE customer contact {}", response);
         return response;
     }
 
     @GetMapping("/{id}")
     @ResponseBody
     @ResponseStatus(value = HttpStatus.OK)
-    public CustomerPhoneDto get(@PathVariable Integer id) {
-        CustomerPhoneDto response = customerPhoneService.get(id);
-        log.info("GET customer phone by id = {}: {}", id, response);
+    public CustomerContactDto get(@PathVariable Integer id) {
+        CustomerContactDto response = customerContactService.get(id);
+        log.info("GET customer contact by id = {}: {}", id, response);
         return response;
     }
 
     @PutMapping("/{id}")
     @ResponseBody
     @ResponseStatus(code = HttpStatus.OK)
-    public CustomerPhoneDto update(@PathVariable Integer id, @RequestBody CustomerPhoneDto request) {
-        CustomerPhoneDto response = customerPhoneService.update(id, request);
-        log.info("UPDATE customer phone by id = {} : {}", id, response);
+    public CustomerContactDto update(@PathVariable Integer id, @RequestBody CustomerContactDto request) {
+        CustomerContactDto response = customerContactService.update(id, request);
+        log.info("UPDATE customer contact by id = {} : {}", id, response);
         return response;
     }
 
     @DeleteMapping("/{id}")
     @ResponseBody
     @ResponseStatus(code = HttpStatus.OK)
-    public CustomerPhoneDto delete(@PathVariable Integer id) {
-        CustomerPhoneDto response = customerPhoneService.delete(id);
-        log.info("DELETE customer phone by id = {}: {}", id, response);
+    public CustomerContactDto delete(@PathVariable Integer id) {
+        CustomerContactDto response = customerContactService.delete(id);
+        log.info("DELETE customer contact by id = {}: {}", id, response);
         return response;
     }
 }
