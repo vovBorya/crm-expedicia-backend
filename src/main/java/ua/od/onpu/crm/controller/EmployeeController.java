@@ -3,7 +3,6 @@ package ua.od.onpu.crm.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,10 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ua.od.onpu.crm.dto.EmployeeDto;
 import ua.od.onpu.crm.service.EmployeeService;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-@CrossOrigin
 @RestController
 @Slf4j
 @RequestMapping("/api/employees")
@@ -36,10 +33,8 @@ public class EmployeeController {
     @GetMapping
     @ResponseBody
     @ResponseStatus(value = HttpStatus.OK)
-    public List<EmployeeDto> list(HttpServletResponse httpResponse) {
+    public List<EmployeeDto> list() {
         List<EmployeeDto> response = employeeService.list();
-        httpResponse.addHeader("X-Total-Count", String.format("%s", response.size()));
-        httpResponse.addHeader("Access-Control-Expose-Headers", "X-Total-Count");
         log.info("GET employees: {}", response);
         return response;
     }

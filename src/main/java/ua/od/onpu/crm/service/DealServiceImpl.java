@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 import ua.od.onpu.crm.dao.model.Child;
 import ua.od.onpu.crm.dao.model.Customer;
 import ua.od.onpu.crm.dao.model.Deal;
-import ua.od.onpu.crm.dao.model.Expedition;
 import ua.od.onpu.crm.dao.model.Employee;
+import ua.od.onpu.crm.dao.model.Expedition;
 import ua.od.onpu.crm.dao.repository.ChildRepository;
 import ua.od.onpu.crm.dao.repository.CustomerRepository;
 import ua.od.onpu.crm.dao.repository.DealRepository;
-import ua.od.onpu.crm.dao.repository.ExpeditionRepository;
 import ua.od.onpu.crm.dao.repository.EmployeeRepository;
+import ua.od.onpu.crm.dao.repository.ExpeditionRepository;
 import ua.od.onpu.crm.dto.DealDto;
 import ua.od.onpu.crm.exception.ResourceNotFoundException;
 
@@ -21,8 +21,8 @@ import java.util.List;
 
 import static ua.od.onpu.crm.service.ChildServiceImpl.logChildNotFound;
 import static ua.od.onpu.crm.service.CustomerServiceImpl.logCustomerNotFound;
-import static ua.od.onpu.crm.service.ExpeditionServiceImpl.logExpeditionNotFound;
 import static ua.od.onpu.crm.service.EmployeeServiceImpl.logEmployeeNotFound;
+import static ua.od.onpu.crm.service.ExpeditionServiceImpl.logExpeditionNotFound;
 
 @Slf4j
 @Service
