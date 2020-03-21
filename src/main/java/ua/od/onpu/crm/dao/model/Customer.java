@@ -43,9 +43,6 @@ public class Customer {
     @Column(name = "patronymic", length = 40)
     private String patronymic;
 
-    @Column(name = "email_address", length = 70)
-    private String email;
-
     @OneToMany(
             mappedBy = "parent",
             cascade = CascadeType.REFRESH,
@@ -67,5 +64,5 @@ public class Customer {
             fetch = FetchType.LAZY,
             orphanRemoval = true
     )
-    private Set<CustomerPhone> phones;
+    private Set<CustomerContact> contacts;
 }

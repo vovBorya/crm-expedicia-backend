@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ua.od.onpu.crm.dao.model.enums.DealStatus;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -40,7 +41,7 @@ public class Deal {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private DealStatus status;
 
     @Column(name = "comment")
     private String comment;
