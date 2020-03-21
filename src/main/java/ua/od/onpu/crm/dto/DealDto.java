@@ -20,7 +20,7 @@ public class DealDto {
 
     private String comment;
 
-    private Integer managerId;
+    private Integer employeeId;
 
     private Integer customerId;
 

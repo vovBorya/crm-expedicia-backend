@@ -27,9 +27,9 @@ import java.util.Set;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table(name = "managers")
+@Table(name = "employees")
 @Builder
-public class Manager {
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,7 +59,7 @@ public class Manager {
     private String email;
 
     @OneToMany(
-            mappedBy = "manager",
+            mappedBy = "employee",
             cascade = CascadeType.REFRESH,
             fetch = FetchType.LAZY
     )
