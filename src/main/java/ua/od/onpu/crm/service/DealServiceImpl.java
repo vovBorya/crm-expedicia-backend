@@ -7,12 +7,12 @@ import ua.od.onpu.crm.dao.model.Child;
 import ua.od.onpu.crm.dao.model.Customer;
 import ua.od.onpu.crm.dao.model.Deal;
 import ua.od.onpu.crm.dao.model.Expedition;
-import ua.od.onpu.crm.dao.model.Manager;
+import ua.od.onpu.crm.dao.model.Employee;
 import ua.od.onpu.crm.dao.repository.ChildRepository;
 import ua.od.onpu.crm.dao.repository.CustomerRepository;
 import ua.od.onpu.crm.dao.repository.DealRepository;
 import ua.od.onpu.crm.dao.repository.ExpeditionRepository;
-import ua.od.onpu.crm.dao.repository.ManagerRepository;
+import ua.od.onpu.crm.dao.repository.EmployeeRepository;
 import ua.od.onpu.crm.dto.DealDto;
 import ua.od.onpu.crm.exception.ResourceNotFoundException;
 
@@ -22,7 +22,7 @@ import java.util.List;
 import static ua.od.onpu.crm.service.ChildServiceImpl.logChildNotFound;
 import static ua.od.onpu.crm.service.CustomerServiceImpl.logCustomerNotFound;
 import static ua.od.onpu.crm.service.ExpeditionServiceImpl.logExpeditionNotFound;
-import static ua.od.onpu.crm.service.ManagerServiceImpl.logManagerNotFound;
+import static ua.od.onpu.crm.service.EmployeeServiceImpl.logEmployeeNotFound;
 
 @Slf4j
 @Service
@@ -30,17 +30,17 @@ public class DealServiceImpl implements DealService {
 
     private DealRepository dealRepository;
     private CustomerRepository customerRepository;
-    private ManagerRepository managerRepository;
+    private EmployeeRepository employeeRepository;
     private ChildRepository childRepository;
     private ExpeditionRepository expeditionRepository;
 
     @Autowired
     public DealServiceImpl(DealRepository dealRepository, CustomerRepository customerRepository,
-                           ManagerRepository managerRepository, ChildRepository childRepository,
+                           EmployeeRepository employeeRepository, ChildRepository childRepository,
                            ExpeditionRepository expeditionRepository) {
         this.dealRepository = dealRepository;
         this.customerRepository = customerRepository;
-        this.managerRepository = managerRepository;
+        this.employeeRepository = employeeRepository;
         this.childRepository = childRepository;
         this.expeditionRepository = expeditionRepository;
     }
@@ -68,7 +68,7 @@ public class DealServiceImpl implements DealService {
     public DealDto update(Integer id, DealDto dto) {
         Deal deal = findDealById(id);
 
-        Manager manager = findManagerById(dto.getManagerId());
+        Employee employee = findEmployeeById(dto.getEmployeeId());
         Customer customer = findCustomerById(dto.getCustomerId());
         Child child = findChildById(dto.getChildId());
         Expedition expedition = findExpeditionById(dto.getExpeditionId());
@@ -76,7 +76,7 @@ public class DealServiceImpl implements DealService {
         deal.setSum(dto.getSum());
         deal.setStatus(dto.getStatus());
         deal.setComment(dto.getComment());
-        deal.setManager(manager);
+        deal.setEmployee(employee);
         deal.setCustomer(customer);
         deal.setChild(child);
         deal.setExpedition(expedition);
@@ -103,9 +103,9 @@ public class DealServiceImpl implements DealService {
                 .orElseThrow(() -> logDealNotFound(id));
     }
 
-    private Manager findManagerById(Integer id) {
-        return managerRepository.findById(id)
-                .orElseThrow(() -> logManagerNotFound(id));
+    private Employee findEmployeeById(Integer id) {
+        return employeeRepository.findById(id)
+                .orElseThrow(() -> logEmployeeNotFound(id));
     }
 
     private Customer findCustomerById(Integer id) {
@@ -129,7 +129,7 @@ public class DealServiceImpl implements DealService {
                 .sum(deal.getSum())
                 .status(deal.getStatus())
                 .comment(deal.getComment())
-                .managerId(deal.getManager().getId())
+                .employeeId(deal.getEmployee().getId())
                 .customerId(deal.getCustomer().getId())
                 .childId(deal.getChild().getId())
                 .expeditionId(deal.getExpedition().getId())
@@ -138,7 +138,7 @@ public class DealServiceImpl implements DealService {
     }
 
     private Deal buildToEntity(DealDto dto) {
-        Manager manager = findManagerById(dto.getManagerId());
+        Employee employee = findEmployeeById(dto.getEmployeeId());
         Customer customer = findCustomerById(dto.getCustomerId());
         Child child = findChildById(dto.getChildId());
         Expedition expedition = findExpeditionById(dto.getExpeditionId());
@@ -147,7 +147,7 @@ public class DealServiceImpl implements DealService {
                 .sum(dto.getSum())
                 .status(dto.getStatus())
                 .comment(dto.getComment())
-                .manager(manager)
+                .employee(employee)
                 .customer(customer)
                 .child(child)
                 .expedition(expedition)

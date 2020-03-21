@@ -47,8 +47,8 @@ public class Deal {
 
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "manager_id")
-    private Manager manager;
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.REFRESH)

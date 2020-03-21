@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ManagerDto {
+public class EmployeeDto {
 
     private Integer id;
 

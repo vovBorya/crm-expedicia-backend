@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import ua.od.onpu.crm.dto.ManagerDto;
-import ua.od.onpu.crm.service.ManagerService;
+import ua.od.onpu.crm.dto.EmployeeDto;
+import ua.od.onpu.crm.service.EmployeeService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -23,60 +23,60 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @Slf4j
-@RequestMapping("/api/managers")
-public class ManagerController {
+@RequestMapping("/api/employees")
+public class EmployeeController {
 
-    private ManagerService managerService;
+    private EmployeeService employeeService;
 
     @Autowired
-    public ManagerController(ManagerService managerService) {
-        this.managerService = managerService;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     @GetMapping
     @ResponseBody
     @ResponseStatus(value = HttpStatus.OK)
-    public List<ManagerDto> list(HttpServletResponse httpResponse) {
-        List<ManagerDto> response = managerService.list();
+    public List<EmployeeDto> list(HttpServletResponse httpResponse) {
+        List<EmployeeDto> response = employeeService.list();
         httpResponse.addHeader("X-Total-Count", String.format("%s", response.size()));
         httpResponse.addHeader("Access-Control-Expose-Headers", "X-Total-Count");
-        log.info("GET managers: {}", response);
+        log.info("GET employees: {}", response);
         return response;
     }
 
     @PostMapping
     @ResponseBody
     @ResponseStatus(value = HttpStatus.CREATED)
-    public ManagerDto create(@RequestBody ManagerDto request) {
-        ManagerDto response = managerService.create(request);
-        log.info("CREATE manager {}", response);
+    public EmployeeDto create(@RequestBody EmployeeDto request) {
+        EmployeeDto response = employeeService.create(request);
+        log.info("CREATE employee {}", response);
         return response;
     }
 
     @GetMapping("/{id}")
     @ResponseBody
     @ResponseStatus(value = HttpStatus.OK)
-    public ManagerDto get(@PathVariable Integer id) {
-        ManagerDto response = managerService.get(id);
-        log.info("GET manager by id = {}: {}", id, response);
+    public EmployeeDto get(@PathVariable Integer id) {
+        EmployeeDto response = employeeService.get(id);
+        log.info("GET employee by id = {}: {}", id, response);
         return response;
     }
 
     @PutMapping("/{id}")
     @ResponseBody
     @ResponseStatus(code = HttpStatus.OK)
-    public ManagerDto update(@PathVariable Integer id, @RequestBody ManagerDto request) {
-        ManagerDto response = managerService.update(id, request);
-        log.info("UPDATE manager by id = {} : {}", id, response);
+    public EmployeeDto update(@PathVariable Integer id, @RequestBody EmployeeDto request) {
+        EmployeeDto response = employeeService.update(id, request);
+        log.info("UPDATE employee by id = {} : {}", id, response);
         return response;
     }
 
     @DeleteMapping("/{id}")
     @ResponseBody
     @ResponseStatus(code = HttpStatus.OK)
-    public ManagerDto delete(@PathVariable Integer id) {
-        ManagerDto response = managerService.delete(id);
-        log.info("DELETE manager by id = {}: {}", id, response);
+    public EmployeeDto delete(@PathVariable Integer id) {
+        EmployeeDto response = employeeService.delete(id);
+        log.info("DELETE employee by id = {}: {}", id, response);
         return response;
     }
 }
