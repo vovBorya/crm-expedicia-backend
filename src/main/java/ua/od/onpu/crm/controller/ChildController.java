@@ -3,7 +3,6 @@ package ua.od.onpu.crm.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,11 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ua.od.onpu.crm.dto.ChildDto;
 import ua.od.onpu.crm.service.ChildService;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.util.List;
 
-@CrossOrigin
 @Slf4j
 @RestController
 @RequestMapping("/api/children")
@@ -37,10 +33,8 @@ public class ChildController {
     @GetMapping
     @ResponseBody
     @ResponseStatus(code = HttpStatus.OK)
-    public List<ChildDto> list(HttpServletResponse httpResponse) {
+    public List<ChildDto> list() {
         List<ChildDto> response = childService.list();
-        httpResponse.addHeader("X-Total-Count", String.format("%s", response.size()));
-        httpResponse.addHeader("Access-Control-Expose-Headers", "X-Total-Count");
         log.info("GET children: {}", response);
         return response;
     }
@@ -48,7 +42,7 @@ public class ChildController {
     @PostMapping
     @ResponseBody
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ChildDto create(@Valid @RequestBody ChildDto request) {
+    public ChildDto create(@RequestBody ChildDto request) {
         ChildDto response = childService.create(request);
         log.info("CREATE child {}", response);
         return response;

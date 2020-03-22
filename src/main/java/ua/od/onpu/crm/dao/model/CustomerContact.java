@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ua.od.onpu.crm.dao.model.enums.ContactType;
-import ua.od.onpu.crm.dao.model.enums.DealStatus;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
