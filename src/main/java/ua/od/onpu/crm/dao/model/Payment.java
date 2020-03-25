@@ -7,11 +7,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import ua.od.onpu.crm.config.GlobalConfig;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,6 +32,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "payments")
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 public class Payment {
 
     @Id
@@ -38,6 +42,7 @@ public class Payment {
 
     @Column(name = "paid_at")
     @JsonFormat(pattern = GlobalConfig.DATE_FORMAT_PATTERN_WITH_TIME)
+    @CreatedDate
     private LocalDateTime paidAt;
 
     @ManyToOne(fetch = FetchType.LAZY,
@@ -45,4 +50,6 @@ public class Payment {
     @JoinColumn(name = "deal_id")
     private Deal deal;
 
+    @Column(name = "sum")
+    private Integer sum;
 }
