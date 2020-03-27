@@ -89,6 +89,7 @@ public class PaymentServiceImpl implements PaymentService {
                 .id(payment.getId())
                 .dealId(deal.getId())
                 .paidAt(payment.getPaidAt())
+                .sum(payment.getSum())
                 .build();
     }
 
@@ -98,6 +99,7 @@ public class PaymentServiceImpl implements PaymentService {
         return Payment.builder()
                 .deal(deal)
                 .paidAt(dto.getPaidAt())
+                .sum(dto.getSum())
                 .build();
     }
 }

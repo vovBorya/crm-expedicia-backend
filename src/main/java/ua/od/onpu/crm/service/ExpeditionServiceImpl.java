@@ -80,7 +80,7 @@ public class ExpeditionServiceImpl implements ExpeditionService {
     private Expedition buildToEntity(ExpeditionDto dto) {
         return Expedition.builder()
                 .abbreviation(dto.getAbbreviation())
-                .location(dto.getAbbreviation())
+                .location(dto.getLocation())
                 .build();
     }
 }

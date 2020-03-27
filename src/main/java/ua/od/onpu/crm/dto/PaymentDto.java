@@ -21,4 +21,6 @@ public class PaymentDto {
     private LocalDateTime paidAt;
 
     private Integer dealId;
+
+    private Integer sum;
 }
