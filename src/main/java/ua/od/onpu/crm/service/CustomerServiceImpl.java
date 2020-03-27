@@ -69,12 +69,21 @@ public class CustomerServiceImpl implements CustomerService {
         return new ResourceNotFoundException("Customer with id = " + id + " NOT_FOUND");
     }
 
+    private String getFullName(Customer customer) {
+        return String.format("%s %s %s",
+                customer.getLastName(),
+                customer.getFirstName(),
+                customer.getPatronymic() != null ? customer.getPatronymic() : ""
+        );
+    }
+
     private CustomerDto buildToDto(Customer customer) {
         return CustomerDto.builder()
                 .id(customer.getId())
                 .lastName(customer.getLastName())
                 .firstName(customer.getFirstName())
                 .patronymic(customer.getPatronymic())
+                .fullName(getFullName(customer))
                 .build();
     }
 

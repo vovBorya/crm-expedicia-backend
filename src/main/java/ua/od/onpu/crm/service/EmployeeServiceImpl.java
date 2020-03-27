@@ -74,6 +74,14 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .orElseThrow(() -> logEmployeeNotFound(id));
     }
 
+    private String getFullName(Employee employee) {
+        return String.format("%s %s %s",
+                employee.getLastName(),
+                employee.getFirstName(),
+                employee.getPatronymic() != null ? employee.getPatronymic() : ""
+        );
+    }
+
     private EmployeeDto buildToDto(Employee employee) {
         return EmployeeDto.builder()
                 .id(employee.getId())
@@ -82,6 +90,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .firstName(employee.getFirstName())
                 .lastName(employee.getLastName())
                 .patronymic(employee.getPatronymic())
+                .fullName(getFullName(employee))
                 .phone(employee.getPhone())
                 .salary(employee.getSalary())
                 .build();

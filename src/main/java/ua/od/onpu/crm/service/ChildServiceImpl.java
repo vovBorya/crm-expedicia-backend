@@ -85,6 +85,13 @@ public class ChildServiceImpl implements ChildService {
         return new ResourceNotFoundException("Child with id = " + id + " NOT_FOUND");
     }
 
+    private String getFullName(Child child) {
+        return String.format("%s %s %s",
+                child.getLastName(),
+                child.getFirstName(),
+                child.getPatronymic() != null ? child.getPatronymic() : ""
+        );
+    }
 
     private ChildDto buildToDto(Child child) {
         return ChildDto.builder()
@@ -92,6 +99,7 @@ public class ChildServiceImpl implements ChildService {
                 .firstName(child.getFirstName())
                 .lastName(child.getLastName())
                 .patronymic(child.getPatronymic())
+                .fullName(getFullName(child))
                 .birthday(child.getBirthday())
                 .parentId(child.getParent().getId())
                 .build();
