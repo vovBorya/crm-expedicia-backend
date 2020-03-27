@@ -9,6 +9,7 @@ import ua.od.onpu.crm.dao.repository.ChildRepository;
 import ua.od.onpu.crm.dao.repository.CustomerRepository;
 import ua.od.onpu.crm.dto.ChildDto;
 import ua.od.onpu.crm.exception.ResourceNotFoundException;
+import ua.od.onpu.crm.service.provider.NameProvider;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,11 +23,14 @@ public class ChildServiceImpl implements ChildService {
 
     private ChildRepository childRepository;
     private CustomerRepository customerRepository;
+    private NameProvider nameProvider;
 
     @Autowired
-    public ChildServiceImpl(ChildRepository childRepository, CustomerRepository customerRepository) {
+    public ChildServiceImpl(ChildRepository childRepository, CustomerRepository customerRepository,
+                            NameProvider nameProvider) {
         this.childRepository = childRepository;
         this.customerRepository = customerRepository;
+        this.nameProvider = nameProvider;
     }
 
     @Override
@@ -69,7 +73,6 @@ public class ChildServiceImpl implements ChildService {
         return buildToDto(child);
     }
 
-
     private Customer findCustomerById(Integer id) {
         return customerRepository.findById(id)
                 .orElseThrow(() -> logCustomerNotFound(id));
@@ -85,21 +88,13 @@ public class ChildServiceImpl implements ChildService {
         return new ResourceNotFoundException("Child with id = " + id + " NOT_FOUND");
     }
 
-    private String getFullName(Child child) {
-        return String.format("%s %s %s",
-                child.getLastName(),
-                child.getFirstName(),
-                child.getPatronymic() != null ? child.getPatronymic() : ""
-        );
-    }
-
     private ChildDto buildToDto(Child child) {
         return ChildDto.builder()
                 .id(child.getId())
                 .firstName(child.getFirstName())
                 .lastName(child.getLastName())
                 .patronymic(child.getPatronymic())
-                .fullName(getFullName(child))
+                .fullName(nameProvider.getFullName(child.getLastName(), child.getFirstName(), child.getPatronymic()))
                 .birthday(child.getBirthday())
                 .parentId(child.getParent().getId())
                 .build();

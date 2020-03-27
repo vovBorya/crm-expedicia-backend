@@ -7,6 +7,7 @@ import ua.od.onpu.crm.dao.model.Employee;
 import ua.od.onpu.crm.dao.repository.EmployeeRepository;
 import ua.od.onpu.crm.dto.EmployeeDto;
 import ua.od.onpu.crm.exception.ResourceNotFoundException;
+import ua.od.onpu.crm.service.provider.NameProvider;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,10 +17,12 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
+    private NameProvider nameProvider;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, NameProvider nameProvider) {
         this.employeeRepository = employeeRepository;
+        this.nameProvider = nameProvider;
     }
 
     @Override
@@ -74,14 +77,6 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .orElseThrow(() -> logEmployeeNotFound(id));
     }
 
-    private String getFullName(Employee employee) {
-        return String.format("%s %s %s",
-                employee.getLastName(),
-                employee.getFirstName(),
-                employee.getPatronymic() != null ? employee.getPatronymic() : ""
-        );
-    }
-
     private EmployeeDto buildToDto(Employee employee) {
         return EmployeeDto.builder()
                 .id(employee.getId())
@@ -90,7 +85,8 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .firstName(employee.getFirstName())
                 .lastName(employee.getLastName())
                 .patronymic(employee.getPatronymic())
-                .fullName(getFullName(employee))
+                .fullName(nameProvider.getFullName(employee.getLastName(), employee.getFirstName(),
+                        employee.getPatronymic()))
                 .phone(employee.getPhone())
                 .salary(employee.getSalary())
                 .build();

@@ -7,6 +7,7 @@ import ua.od.onpu.crm.dao.model.Customer;
 import ua.od.onpu.crm.dao.repository.CustomerRepository;
 import ua.od.onpu.crm.dto.CustomerDto;
 import ua.od.onpu.crm.exception.ResourceNotFoundException;
+import ua.od.onpu.crm.service.provider.NameProvider;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,10 +17,12 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService {
 
     private CustomerRepository customerRepository;
+    private NameProvider nameProvider;
 
     @Autowired
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
+    public CustomerServiceImpl(CustomerRepository customerRepository, NameProvider nameProvider) {
         this.customerRepository = customerRepository;
+        this.nameProvider = nameProvider;
     }
 
     @Override
@@ -69,21 +72,14 @@ public class CustomerServiceImpl implements CustomerService {
         return new ResourceNotFoundException("Customer with id = " + id + " NOT_FOUND");
     }
 
-    private String getFullName(Customer customer) {
-        return String.format("%s %s %s",
-                customer.getLastName(),
-                customer.getFirstName(),
-                customer.getPatronymic() != null ? customer.getPatronymic() : ""
-        );
-    }
-
     private CustomerDto buildToDto(Customer customer) {
         return CustomerDto.builder()
                 .id(customer.getId())
                 .lastName(customer.getLastName())
                 .firstName(customer.getFirstName())
                 .patronymic(customer.getPatronymic())
-                .fullName(getFullName(customer))
+                .fullName(nameProvider.getFullName(customer.getLastName(), customer.getFirstName(),
+                        customer.getPatronymic()))
                 .build();
     }
 
