@@ -23,6 +23,8 @@ public class EmployeeDto {
 
     private String patronymic;
 
+    private String fullName;
+
     @JsonFormat(pattern = GlobalConfig.DATE_FORMAT_PATTERN)
     private LocalDate birthday;
 

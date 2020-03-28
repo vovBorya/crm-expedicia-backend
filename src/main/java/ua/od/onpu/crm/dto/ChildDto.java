@@ -23,6 +23,8 @@ public class ChildDto {
 
     private String patronymic;
 
+    private String fullName;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = GlobalConfig.DATE_FORMAT_PATTERN)
     private LocalDate birthday;
 
