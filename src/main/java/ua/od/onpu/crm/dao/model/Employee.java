@@ -3,7 +3,6 @@ package ua.od.onpu.crm.dao.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,13 +18,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "employees")
 @Builder
@@ -60,8 +58,8 @@ public class Employee {
 
     @OneToMany(
             mappedBy = "employee",
-            cascade = CascadeType.REFRESH,
+            cascade = {CascadeType.REFRESH, CascadeType.PERSIST},
             fetch = FetchType.LAZY
     )
-    private Set<Deal> deals;
+    private List<Deal> deals;
 }

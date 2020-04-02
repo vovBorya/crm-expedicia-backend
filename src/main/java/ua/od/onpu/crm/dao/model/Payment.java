@@ -3,7 +3,6 @@ package ua.od.onpu.crm.dao.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,7 +27,6 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "payments")
 @Builder
@@ -46,7 +44,7 @@ public class Payment {
     private LocalDateTime paidAt;
 
     @ManyToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.REFRESH)
+            cascade = CascadeType.ALL)
     @JoinColumn(name = "deal_id")
     private Deal deal;
 
