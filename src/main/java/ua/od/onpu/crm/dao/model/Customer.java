@@ -3,7 +3,6 @@ package ua.od.onpu.crm.dao.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,15 +14,15 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "customers")
 @Builder
@@ -44,11 +43,11 @@ public class Customer {
     private String patronymic;
 
     @OneToMany(
-            mappedBy = "parent",
             cascade = CascadeType.REFRESH,
             fetch = FetchType.LAZY
     )
-    private Set<Child> children;
+    @JoinColumn(name = "parent_id")
+    private List<Child> children;
 
     @OneToMany(
             mappedBy = "customer",
@@ -56,7 +55,7 @@ public class Customer {
             fetch = FetchType.LAZY,
             orphanRemoval = true
     )
-    private Set<Deal> deals;
+    private List<Deal> deals;
 
     @OneToMany(
             mappedBy = "customer",
@@ -64,5 +63,5 @@ public class Customer {
             fetch = FetchType.LAZY,
             orphanRemoval = true
     )
-    private Set<CustomerContact> contacts;
+    private List<CustomerContact> contacts;
 }

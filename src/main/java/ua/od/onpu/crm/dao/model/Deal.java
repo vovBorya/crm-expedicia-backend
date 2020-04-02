@@ -2,7 +2,6 @@ package ua.od.onpu.crm.dao.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,13 +18,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "deals")
 @Builder
@@ -65,6 +65,14 @@ public class Deal {
             cascade = CascadeType.REFRESH)
     @JoinColumn(name = "expedition_id")
     private Expedition expedition;
+
+    @OneToMany(
+            mappedBy = "deal",
+            cascade = {CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.PERSIST},
+            fetch = FetchType.LAZY,
+            orphanRemoval = true
+    )
+    private List<Payment> payments;
 
     @Column(name = "sleeping_bag")
     private Boolean sleepingBag;

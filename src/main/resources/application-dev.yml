@@ -1,1 +1,1 @@
-dbUrl: 'jdbc:mysql://crm-dev:root@localhost:3306/crm_db'
+dbUrl: 'jdbc:mysql://crm-dev:root@localhost:3306/crm_db?useUnicode=true&serverTimezone=UTC'
