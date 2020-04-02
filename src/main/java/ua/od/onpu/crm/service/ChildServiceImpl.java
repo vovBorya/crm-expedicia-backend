@@ -96,19 +96,20 @@ public class ChildServiceImpl implements ChildService {
                 .patronymic(child.getPatronymic())
                 .fullName(nameProvider.getFullName(child.getLastName(), child.getFirstName(), child.getPatronymic()))
                 .birthday(child.getBirthday())
-                .parentId(child.getParent().getId())
+                .parentId(child.getParent() != null ? child.getParent().getId() : null)
                 .build();
     }
 
     private Child buildToEntity(ChildDto dto) {
-        Customer customer = findCustomerById(dto.getParentId());
-
-        return Child.builder()
+        Child child = Child.builder()
                 .firstName(dto.getFirstName())
                 .lastName(dto.getLastName())
                 .patronymic(dto.getPatronymic())
                 .birthday(dto.getBirthday())
-                .parent(customer)
                 .build();
+        if (dto.getParentId() != null) {
+            child.setParent(findCustomerById(dto.getParentId()));
+        }
+        return child;
     }
 }
