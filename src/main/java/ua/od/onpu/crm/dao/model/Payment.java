@@ -44,7 +44,7 @@ public class Payment {
     private LocalDateTime paidAt;
 
     @ManyToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+            cascade = {CascadeType.REFRESH, CascadeType.PERSIST})
     @JoinColumn(name = "deal_id")
     private Deal deal;
 
