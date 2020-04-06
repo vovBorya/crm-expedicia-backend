@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -74,4 +75,32 @@ public class DealController {
         log.info("DELETE deal by id = {}: {}", id, response);
         return response;
     }
+
+    @GetMapping(params = "childId")
+    @ResponseBody
+    @ResponseStatus(code = HttpStatus.OK)
+    public List<DealDto> getDealsByChild(@RequestParam Integer childId) {
+        List<DealDto> response = dealService.getDealsByChild(childId);
+        log.info("GET deal by childId = {}: {}", childId, response);
+        return response;
+    }
+
+    @GetMapping(params = "customerId")
+    @ResponseBody
+    @ResponseStatus(code = HttpStatus.OK)
+    public List<DealDto> getDealsByCustomer(@RequestParam Integer customerId) {
+        List<DealDto> response = dealService.getDealsByCustomer(customerId);
+        log.info("GET deal by customerId = {}: {}", customerId, response);
+        return response;
+    }
+
+    @GetMapping(params = "employeeId")
+    @ResponseBody
+    @ResponseStatus(code = HttpStatus.OK)
+    public List<DealDto> getDealsByEmployee(@RequestParam Integer employeeId) {
+        List<DealDto> response = dealService.getDealsByEmployee(employeeId);
+        log.info("GET deal by employeeId = {}: {}", employeeId, response);
+        return response;
+    }
+
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -72,6 +73,15 @@ public class ChildController {
     public ChildDto delete(@PathVariable Integer id) {
         ChildDto response = childService.delete(id);
         log.info("DELETE child by id = {}: {}", id, response);
+        return response;
+    }
+
+    @GetMapping(params = "parentId")
+    @ResponseBody
+    @ResponseStatus(code = HttpStatus.OK)
+    public List<ChildDto> getChildrenByParent(@RequestParam Integer parentId) {
+        List<ChildDto> response = childService.getChildrenByParent(parentId);
+        log.info("GET children by parentId = {}: {}", parentId, response);
         return response;
     }
 }

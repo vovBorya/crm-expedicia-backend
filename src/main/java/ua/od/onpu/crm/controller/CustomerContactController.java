@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import ua.od.onpu.crm.dto.CustomerContactDto;
 import ua.od.onpu.crm.service.CustomerContactService;
+
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -61,6 +64,15 @@ public class CustomerContactController {
     public CustomerContactDto delete(@PathVariable Integer id) {
         CustomerContactDto response = customerContactService.delete(id);
         log.info("DELETE customer contact by id = {}: {}", id, response);
+        return response;
+    }
+
+    @GetMapping(params = "customerId")
+    @ResponseBody
+    @ResponseStatus(code = HttpStatus.OK)
+    public List<CustomerContactDto> getContactsByCustomer(@RequestParam Integer customerId) {
+        List<CustomerContactDto> response = customerContactService.getContactsByCustomer(customerId);
+        log.info("GET contacts by customerId = {}: {}", customerId, response);
         return response;
     }
 }

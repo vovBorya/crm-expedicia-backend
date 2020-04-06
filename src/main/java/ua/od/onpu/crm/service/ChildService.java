@@ -15,4 +15,7 @@ public interface ChildService {
     ChildDto update(Integer id, ChildDto childDt);
 
     ChildDto delete(Integer id);
+
+    List<ChildDto> getChildrenByParent(Integer parentId);
+
 }

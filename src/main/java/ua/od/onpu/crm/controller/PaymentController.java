@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -72,6 +73,15 @@ public class PaymentController {
     public PaymentDto delete(@PathVariable Integer id) {
         PaymentDto response = paymentService.delete(id);
         log.info("DELETE deal by id = {}: {}", id, response);
+        return response;
+    }
+
+    @GetMapping(params = "dealId")
+    @ResponseBody
+    @ResponseStatus(code = HttpStatus.OK)
+    public List<PaymentDto> getPaymentsByDeal(@RequestParam Integer dealId) {
+        List<PaymentDto> response = paymentService.getPaymentsByDeal(dealId);
+        log.info("GET payments by dealId = {}: {}", dealId, response);
         return response;
     }
 }

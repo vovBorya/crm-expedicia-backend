@@ -68,8 +68,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     static ResourceNotFoundException logEmployeeNotFound(Integer id) {
-        log.error("Manager with id = {} NOT_FOUND", id);
-        return new ResourceNotFoundException("Manager with id = " + id + " NOT_FOUND");
+        log.error("Employee with id = {} NOT_FOUND", id);
+        return new ResourceNotFoundException("Employee with id = " + id + " NOT_FOUND");
     }
 
     private Employee findEmployeeById(Integer id) {

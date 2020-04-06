@@ -13,6 +13,7 @@ import ua.od.onpu.crm.service.provider.NameProvider;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static ua.od.onpu.crm.service.CustomerServiceImpl.logCustomerNotFound;
 
@@ -71,6 +72,14 @@ public class ChildServiceImpl implements ChildService {
         Child child = findChildById(id);
         childRepository.delete(child);
         return buildToDto(child);
+    }
+
+    @Override
+    public List<ChildDto> getChildrenByParent(Integer parentId) {
+        return childRepository.findAllByParentId(parentId)
+                .stream()
+                .map(this::buildToDto)
+                .collect(Collectors.toList());
     }
 
     private Customer findCustomerById(Integer id) {

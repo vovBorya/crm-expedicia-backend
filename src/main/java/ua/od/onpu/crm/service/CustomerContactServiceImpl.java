@@ -10,6 +10,9 @@ import ua.od.onpu.crm.dao.repository.CustomerRepository;
 import ua.od.onpu.crm.dto.CustomerContactDto;
 import ua.od.onpu.crm.exception.ResourceNotFoundException;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static ua.od.onpu.crm.service.CustomerServiceImpl.logCustomerNotFound;
 
 @Slf4j
@@ -55,6 +58,14 @@ public class CustomerContactServiceImpl implements CustomerContactService {
         CustomerContact customerContact = findCustomerContactById(id);
         customerContactRepository.delete(customerContact);
         return buildToDto(customerContact);
+    }
+
+    @Override
+    public List<CustomerContactDto> getContactsByCustomer(Integer customerId) {
+        return customerContactRepository.findAllByCustomerId(customerId)
+                .stream()
+                .map(this::buildToDto)
+                .collect(Collectors.toList());
     }
 
     static ResourceNotFoundException logCustomerContactNotFound(Integer id) {

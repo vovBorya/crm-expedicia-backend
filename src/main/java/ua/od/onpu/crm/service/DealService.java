@@ -15,4 +15,10 @@ public interface DealService {
     DealDto update(Integer id, DealDto dealDto);
 
     DealDto delete(Integer id);
+
+    List<DealDto> getDealsByChild(Integer childId);
+
+    List<DealDto> getDealsByCustomer(Integer customerId);
+
+    List<DealDto> getDealsByEmployee(Integer employeeId);
 }
