@@ -76,7 +76,7 @@ public class ChildServiceImpl implements ChildService {
 
     @Override
     public List<ChildDto> getChildrenByParent(Integer parentId) {
-        return findCustomerById(parentId).getChildren()
+        return childRepository.findAllByParentId(parentId)
                 .stream()
                 .map(this::buildToDto)
                 .collect(Collectors.toList());

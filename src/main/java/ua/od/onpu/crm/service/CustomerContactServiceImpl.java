@@ -62,7 +62,7 @@ public class CustomerContactServiceImpl implements CustomerContactService {
 
     @Override
     public List<CustomerContactDto> getContactsByCustomer(Integer customerId) {
-        return findCustomerById(customerId).getContacts()
+        return customerContactRepository.findAllByCustomerId(customerId)
                 .stream()
                 .map(this::buildToDto)
                 .collect(Collectors.toList());

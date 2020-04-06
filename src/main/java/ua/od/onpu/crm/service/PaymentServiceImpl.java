@@ -70,7 +70,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public List<PaymentDto> getPaymentsByDeal(Integer dealId) {
-        return findDealById(dealId).getPayments()
+        return paymentRepository.findAllByDealId(dealId)
                 .stream()
                 .map(this::buildToDto)
                 .collect(Collectors.toList());

@@ -96,7 +96,7 @@ public class DealServiceImpl implements DealService {
 
     @Override
     public List<DealDto> getDealsByChild(Integer childId) {
-        return findChildById(childId).getDeals()
+        return dealRepository.findAllByChildId(childId)
                 .stream()
                 .map(this::buildToDto)
                 .collect(Collectors.toList());
@@ -104,7 +104,7 @@ public class DealServiceImpl implements DealService {
 
     @Override
     public List<DealDto> getDealsByCustomer(Integer customerId) {
-        return findCustomerById(customerId).getDeals()
+        return dealRepository.findAllByCustomerId(customerId)
                 .stream()
                 .map(this::buildToDto)
                 .collect(Collectors.toList());
@@ -112,7 +112,7 @@ public class DealServiceImpl implements DealService {
 
     @Override
     public List<DealDto> getDealsByEmployee(Integer employeeId) {
-        return findEmployeeById(employeeId).getDeals()
+        return dealRepository.findAllByEmployeeId(employeeId)
                 .stream()
                 .map(this::buildToDto)
                 .collect(Collectors.toList());

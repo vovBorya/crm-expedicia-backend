@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,10 +67,10 @@ public class CustomerContactController {
         return response;
     }
 
-    @GetMapping("/customer/{customerId}")
+    @GetMapping(params = "customerId")
     @ResponseBody
     @ResponseStatus(code = HttpStatus.OK)
-    public List<CustomerContactDto> getContactsByCustomer(@PathVariable Integer customerId) {
+    public List<CustomerContactDto> getContactsByCustomer(@RequestParam Integer customerId) {
         List<CustomerContactDto> response = customerContactService.getContactsByCustomer(customerId);
         log.info("GET contacts by customerId = {}: {}", customerId, response);
         return response;
