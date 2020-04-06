@@ -74,4 +74,32 @@ public class DealController {
         log.info("DELETE deal by id = {}: {}", id, response);
         return response;
     }
+
+    @GetMapping("/child/{childId}")
+    @ResponseBody
+    @ResponseStatus(code = HttpStatus.OK)
+    public List<DealDto> getDealsByChild(@PathVariable Integer childId) {
+        List<DealDto> response = dealService.getDealsByChild(childId);
+        log.info("GET deal by childId = {}: {}", childId, response);
+        return response;
+    }
+
+    @GetMapping("/customer/{customerId}")
+    @ResponseBody
+    @ResponseStatus(code = HttpStatus.OK)
+    public List<DealDto> getDealsByCustomer(@PathVariable Integer customerId) {
+        List<DealDto> response = dealService.getDealsByCustomer(customerId);
+        log.info("GET deal by customerId = {}: {}", customerId, response);
+        return response;
+    }
+
+    @GetMapping("/employee/{employeeId}")
+    @ResponseBody
+    @ResponseStatus(code = HttpStatus.OK)
+    public List<DealDto> getDealsByEmployee(@PathVariable Integer employeeId) {
+        List<DealDto> response = dealService.getDealsByEmployee(employeeId);
+        log.info("GET deal by employeeId = {}: {}", employeeId, response);
+        return response;
+    }
+
 }

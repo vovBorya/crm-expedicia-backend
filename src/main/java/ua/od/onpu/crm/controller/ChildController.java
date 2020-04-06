@@ -74,4 +74,13 @@ public class ChildController {
         log.info("DELETE child by id = {}: {}", id, response);
         return response;
     }
+
+    @GetMapping("/parent/{parentId}")
+    @ResponseBody
+    @ResponseStatus(code = HttpStatus.OK)
+    public List<ChildDto> getChildrenByParent(@PathVariable Integer parentId) {
+        List<ChildDto> response = childService.getChildrenByParent(parentId);
+        log.info("GET children by parentId = {}: {}", parentId, response);
+        return response;
+    }
 }

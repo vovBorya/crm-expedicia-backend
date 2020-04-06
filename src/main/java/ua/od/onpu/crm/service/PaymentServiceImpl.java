@@ -12,6 +12,7 @@ import ua.od.onpu.crm.exception.ResourceNotFoundException;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static ua.od.onpu.crm.service.DealServiceImpl.logDealNotFound;
 
@@ -65,6 +66,14 @@ public class PaymentServiceImpl implements PaymentService {
         Payment payment = findPaymentById(id);
         paymentRepository.delete(payment);
         return buildToDto(payment);
+    }
+
+    @Override
+    public List<PaymentDto> getPaymentsByDeal(Integer dealId) {
+        return findDealById(dealId).getPayments()
+                .stream()
+                .map(this::buildToDto)
+                .collect(Collectors.toList());
     }
 
     static ResourceNotFoundException logPaymentNotFound(Integer id) {

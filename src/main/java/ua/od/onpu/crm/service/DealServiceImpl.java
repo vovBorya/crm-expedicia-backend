@@ -18,6 +18,7 @@ import ua.od.onpu.crm.exception.ResourceNotFoundException;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static ua.od.onpu.crm.service.ChildServiceImpl.logChildNotFound;
 import static ua.od.onpu.crm.service.CustomerServiceImpl.logCustomerNotFound;
@@ -91,6 +92,30 @@ public class DealServiceImpl implements DealService {
         Deal deal = findDealById(id);
         dealRepository.delete(deal);
         return buildToDto(deal);
+    }
+
+    @Override
+    public List<DealDto> getDealsByChild(Integer childId) {
+        return findChildById(childId).getDeals()
+                .stream()
+                .map(this::buildToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<DealDto> getDealsByCustomer(Integer customerId) {
+        return findCustomerById(customerId).getDeals()
+                .stream()
+                .map(this::buildToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<DealDto> getDealsByEmployee(Integer employeeId) {
+        return findEmployeeById(employeeId).getDeals()
+                .stream()
+                .map(this::buildToDto)
+                .collect(Collectors.toList());
     }
 
     static ResourceNotFoundException logDealNotFound(Integer id) {

@@ -15,4 +15,6 @@ public interface PaymentService {
     PaymentDto update(Integer id, PaymentDto paymentDto);
 
     PaymentDto delete(Integer id);
+
+    List<PaymentDto> getPaymentsByDeal(Integer dealId);
 }

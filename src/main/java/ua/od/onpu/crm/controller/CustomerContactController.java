@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ua.od.onpu.crm.dto.CustomerContactDto;
 import ua.od.onpu.crm.service.CustomerContactService;
 
+import java.util.List;
+
 @RestController
 @Slf4j
 @RequestMapping("/api/contacts")
@@ -61,6 +63,15 @@ public class CustomerContactController {
     public CustomerContactDto delete(@PathVariable Integer id) {
         CustomerContactDto response = customerContactService.delete(id);
         log.info("DELETE customer contact by id = {}: {}", id, response);
+        return response;
+    }
+
+    @GetMapping("/customer/{customerId}")
+    @ResponseBody
+    @ResponseStatus(code = HttpStatus.OK)
+    public List<CustomerContactDto> getContactsByCustomer(@PathVariable Integer customerId) {
+        List<CustomerContactDto> response = customerContactService.getContactsByCustomer(customerId);
+        log.info("GET contacts by customerId = {}: {}", customerId, response);
         return response;
     }
 }

@@ -74,4 +74,13 @@ public class PaymentController {
         log.info("DELETE deal by id = {}: {}", id, response);
         return response;
     }
+
+    @GetMapping("/deal/{dealId}")
+    @ResponseBody
+    @ResponseStatus(code = HttpStatus.OK)
+    public List<PaymentDto> getPaymentsByDeal(@PathVariable Integer dealId) {
+        List<PaymentDto> response = paymentService.getPaymentsByDeal(dealId);
+        log.info("GET payments by dealId = {}: {}", dealId, response);
+        return response;
+    }
 }
