@@ -103,4 +103,12 @@ public class DealController {
         return response;
     }
 
+    @GetMapping(params = "expeditionId")
+    @ResponseBody
+    @ResponseStatus(code = HttpStatus.OK)
+    public List<DealDto> getDealsByExpedition(@RequestParam Integer expeditionId) {
+        List<DealDto> response = dealService.getDealsByExpedition(expeditionId);
+        log.info("GET deal by expeditionId = {}: {}", expeditionId, response);
+        return response;
+    }
 }

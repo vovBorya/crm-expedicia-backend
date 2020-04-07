@@ -118,6 +118,14 @@ public class DealServiceImpl implements DealService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<DealDto> getDealsByExpedition(Integer expeditionId) {
+        return dealRepository.findAllByExpeditionId(expeditionId)
+                .stream()
+                .map(this::buildToDto)
+                .collect(Collectors.toList());
+    }
+
     static ResourceNotFoundException logDealNotFound(Integer id) {
         log.error("Deal with id = {} NOT_FOUND", id);
         return new ResourceNotFoundException("Deal with id = " + id + " NOT_FOUND");

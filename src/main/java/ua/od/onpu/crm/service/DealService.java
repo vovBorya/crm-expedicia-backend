@@ -21,4 +21,6 @@ public interface DealService {
     List<DealDto> getDealsByCustomer(Integer customerId);
 
     List<DealDto> getDealsByEmployee(Integer employeeId);
+
+    List<DealDto> getDealsByExpedition(Integer expeditionId);
 }
