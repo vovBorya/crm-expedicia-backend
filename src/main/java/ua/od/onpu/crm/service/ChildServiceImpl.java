@@ -55,7 +55,8 @@ public class ChildServiceImpl implements ChildService {
 
     @Override
     public ChildDto update(Integer id, ChildDto childDto) {
-        Customer parent = findCustomerById(childDto.getParentId());
+        Customer parent = (childDto.getParentId() == null) ? null:
+                findCustomerById(childDto.getParentId());
         Child child = findChildById(id);
 
         child.setLastName(childDto.getLastName());
