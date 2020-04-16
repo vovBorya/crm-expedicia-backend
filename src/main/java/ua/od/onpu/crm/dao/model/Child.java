@@ -1,6 +1,7 @@
 package ua.od.onpu.crm.dao.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -50,6 +51,7 @@ public class Child {
 
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.REFRESH)
+    @JsonIgnore
     private Customer parent;
 
     @OneToMany(
@@ -57,5 +59,6 @@ public class Child {
             cascade = {CascadeType.REFRESH},
             fetch = FetchType.LAZY
     )
+    @JsonIgnore
     private List<Deal> deals;
 }

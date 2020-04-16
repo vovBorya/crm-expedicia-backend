@@ -11,6 +11,10 @@ import ua.od.onpu.crm.dto.ChildDto;
 import ua.od.onpu.crm.exception.ResourceNotFoundException;
 import ua.od.onpu.crm.service.provider.NameProvider;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.Year;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -82,6 +86,14 @@ public class ChildServiceImpl implements ChildService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<ChildDto> getFilteredChildren(String fullName, Integer startAge, Integer endAge, Integer age, Integer parentId) {
+        return childRepository.getFilteredChildren(fullName, startAge, endAge + 1, age + 1, parentId)
+                .stream()
+                .map(this::buildToDto)
+                .collect(Collectors.toList());
+    }
+
     private Customer findCustomerById(Integer id) {
         return customerRepository.findById(id)
                 .orElseThrow(() -> logCustomerNotFound(id));
@@ -105,6 +117,7 @@ public class ChildServiceImpl implements ChildService {
                 .patronymic(child.getPatronymic())
                 .fullName(nameProvider.getFullName(child.getLastName(), child.getFirstName(), child.getPatronymic()))
                 .birthday(child.getBirthday())
+                .age(Period.between(child.getBirthday(), LocalDate.now()).getYears())
                 .parentId(child.getParent() != null ? child.getParent().getId() : null)
                 .build();
     }
