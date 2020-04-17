@@ -8,6 +8,7 @@ import ua.od.onpu.crm.dao.model.Customer;
 import ua.od.onpu.crm.dao.model.Deal;
 import ua.od.onpu.crm.dao.model.Employee;
 import ua.od.onpu.crm.dao.model.Expedition;
+import ua.od.onpu.crm.dao.model.enums.DealStatus;
 import ua.od.onpu.crm.dao.repository.ChildRepository;
 import ua.od.onpu.crm.dao.repository.CustomerRepository;
 import ua.od.onpu.crm.dao.repository.DealRepository;
@@ -121,6 +122,14 @@ public class DealServiceImpl implements DealService {
     @Override
     public List<DealDto> getDealsByExpedition(Integer expeditionId) {
         return dealRepository.findAllByExpeditionId(expeditionId)
+                .stream()
+                .map(this::buildToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<DealDto> getFilteredDeal(String status, Integer expeditionId) {
+        return dealRepository.getFilteredDeal(status, expeditionId)
                 .stream()
                 .map(this::buildToDto)
                 .collect(Collectors.toList());
