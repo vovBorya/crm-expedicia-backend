@@ -112,18 +112,20 @@ public class DealController {
         return response;
     }
 
-    @GetMapping(params = {"status", "expeditionId", "employeeName", "customerName", "childName"})
+    @GetMapping(params = {"status", "expeditionId", "sumBetween", "employeeName", "customerName", "childName"})
     @ResponseBody
     @ResponseStatus(code = HttpStatus.OK)
     public List<DealDto> getDealByFilters(@RequestParam String status,
                                           @RequestParam Integer expeditionId,
+                                          @RequestParam(defaultValue = "0, 2147483647") String[] sumBetween,
                                           @RequestParam String employeeName,
                                           @RequestParam String customerName,
                                           @RequestParam String childName) {
-        List<DealDto> response = dealService.getFilteredDeal(status, expeditionId, employeeName, customerName, childName);
-        log.info("GET deal by filter = status - {}, expeditionId - {}, " +
+        List<DealDto> response = dealService.getFilteredDeal(status, expeditionId, Integer.parseInt(sumBetween[0]),
+                Integer.parseInt(sumBetween[1]), employeeName, customerName, childName);
+        log.info("GET deal by filter = status - {}, expeditionId - {}, sumBetween - {}, " +
                         "employeeName - {}, customerName - {}, childName - {}: {}",
-                status, expeditionId, employeeName, customerName, childName, response);
+                status, expeditionId, employeeName, sumBetween, customerName, childName, response);
         return response;
     }
 }

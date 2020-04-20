@@ -25,6 +25,6 @@ public interface DealService {
 
     List<DealDto> getDealsByExpedition(Integer expeditionId);
 
-    List<DealDto> getFilteredDeal(String status, Integer expeditionId,
+    List<DealDto> getFilteredDeal(String status, Integer expeditionId, Integer startSum, Integer endSum,
                                   String employeeName, String customerName, String childName);
 }

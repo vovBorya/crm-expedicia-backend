@@ -20,6 +20,7 @@ public interface DealRepository extends CrudRepository<Deal, Integer> {
     @Query(value =
             "SELECT * FROM deals WHERE status LIKE :dealStatus " +
                     "AND IF(:expeditionId is NULL, TRUE, expedition_id = :expeditionId)" +
+                    "AND sum BETWEEN :startSum and :endSum " +
                     "AND IF(:employeeName = '', TRUE, employee_id = " +
                         "(SELECT id FROM employees " +
                             "WHERE CONCAT_WS(' ', last_name, first_name, patronymic) LIKE :employeeName)) " +
@@ -33,7 +34,9 @@ public interface DealRepository extends CrudRepository<Deal, Integer> {
                             "WHERE CONCAT_WS(' ', last_name, first_name, patronymic) LIKE :childName)) ",
             nativeQuery = true)
     List<Deal> getFilteredDeal(@Param("dealStatus") String dealStatus,
-                               @Param("expeditionId") Integer id,
+                               @Param("expeditionId") Integer expeditionId,
+                               @Param("startSum") Integer startSum,
+                               @Param("endSum") Integer endSum,
                                @Param("employeeName") String employeeName,
                                @Param("customerName") String customerName,
                                @Param("childName") String childName);
