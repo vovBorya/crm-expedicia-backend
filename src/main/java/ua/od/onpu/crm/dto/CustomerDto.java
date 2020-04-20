@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,4 +22,10 @@ public class CustomerDto {
     private String patronymic;
 
     private String fullName;
+
+    private String city;
+
+    private String status;
+
+    private String exemptions;
 }

@@ -48,9 +48,18 @@ public class Child {
     @JsonFormat(pattern = GlobalConfig.DATE_FORMAT_PATTERN)
     private LocalDate birthday;
 
+    @Column(name = "points")
+    private String points;
+
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.REFRESH)
     private Customer parent;
+
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "status")
+    private String status;
 
     @OneToMany(
             mappedBy = "child",

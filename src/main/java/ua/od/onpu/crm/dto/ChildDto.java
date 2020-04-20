@@ -25,8 +25,14 @@ public class ChildDto {
 
     private String fullName;
 
+    private String points;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = GlobalConfig.DATE_FORMAT_PATTERN)
     private LocalDate birthday;
+
+    private String city;
+
+    private String status;
 
     private Integer parentId;
 }

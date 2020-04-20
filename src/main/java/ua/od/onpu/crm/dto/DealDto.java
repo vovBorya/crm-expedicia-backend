@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ua.od.onpu.crm.dao.model.enums.DealStatus;
 
+import javax.persistence.Column;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,6 +19,12 @@ public class DealDto {
     private Integer sum;
 
     private DealStatus status;
+
+    private String discount;
+
+    private String departurePlace;
+
+    private String transportationWay;
 
     private String comment;
 

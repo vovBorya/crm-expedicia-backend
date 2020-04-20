@@ -42,6 +42,15 @@ public class Customer {
     @Column(name = "patronymic", length = 40)
     private String patronymic;
 
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "status")
+    private String status;
+
+    @Column(name = "exemptions")
+    private String exemptions;
+
     @OneToMany(
             cascade = CascadeType.REFRESH,
             fetch = FetchType.LAZY
