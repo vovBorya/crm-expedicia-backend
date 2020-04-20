@@ -76,6 +76,9 @@ public class DealServiceImpl implements DealService {
 
         deal.setSum(dto.getSum());
         deal.setStatus(dto.getStatus());
+        deal.setDiscount(dto.getDiscount());
+        deal.setDeparturePlace(dto.getDeparturePlace());
+        deal.setTransportationWay(dto.getTransportationWay());
         deal.setComment(dto.getComment());
         deal.setEmployee(employee);
         deal.setCustomer(customer);
@@ -161,6 +164,9 @@ public class DealServiceImpl implements DealService {
                 .id(deal.getId())
                 .sum(deal.getSum())
                 .status(deal.getStatus())
+                .discount(deal.getDiscount())
+                .departurePlace(deal.getDeparturePlace())
+                .transportationWay(deal.getTransportationWay())
                 .comment(deal.getComment())
                 .employeeId(deal.getEmployee().getId())
                 .customerId(deal.getCustomer().getId())
@@ -179,6 +185,9 @@ public class DealServiceImpl implements DealService {
         return Deal.builder()
                 .sum(dto.getSum())
                 .status(dto.getStatus())
+                .discount(dto.getDiscount())
+                .departurePlace(dto.getDeparturePlace())
+                .transportationWay(dto.getTransportationWay())
                 .comment(dto.getComment())
                 .employee(employee)
                 .customer(customer)
