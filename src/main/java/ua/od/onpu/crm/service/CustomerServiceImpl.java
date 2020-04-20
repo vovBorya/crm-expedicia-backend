@@ -51,6 +51,9 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setFirstName(customerDto.getFirstName());
         customer.setLastName(customerDto.getLastName());
         customer.setPatronymic(customerDto.getPatronymic());
+        customer.setCity(customerDto.getCity());
+        customer.setStatus(customerDto.getStatus());
+        customer.setExemptions(customerDto.getExemptions());
         Customer response = customerRepository.save(customer);
         return buildToDto(response);
     }
@@ -80,6 +83,9 @@ public class CustomerServiceImpl implements CustomerService {
                 .patronymic(customer.getPatronymic())
                 .fullName(nameProvider.getFullName(customer.getLastName(), customer.getFirstName(),
                         customer.getPatronymic()))
+                .city(customer.getCity())
+                .status(customer.getStatus())
+                .exemptions(customer.getExemptions())
                 .build();
     }
 
@@ -88,6 +94,9 @@ public class CustomerServiceImpl implements CustomerService {
                 .firstName(customerDto.getFirstName())
                 .lastName(customerDto.getLastName())
                 .patronymic(customerDto.getPatronymic())
+                .city(customerDto.getCity())
+                .status(customerDto.getStatus())
+                .exemptions(customerDto.getExemptions())
                 .build();
     }
 }
