@@ -1,5 +1,6 @@
 package ua.od.onpu.crm.service;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import ua.od.onpu.crm.dto.DealDto;
 
 import java.util.List;
@@ -24,5 +25,6 @@ public interface DealService {
 
     List<DealDto> getDealsByExpedition(Integer expeditionId);
 
-    List<DealDto> getFilteredDeal(String status, Integer expeditionId);
+    List<DealDto> getFilteredDeal(String status, Integer expeditionId,
+                                  String employeeName, String customerName, String childName);
 }

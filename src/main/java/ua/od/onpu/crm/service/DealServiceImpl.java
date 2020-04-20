@@ -3,6 +3,7 @@ package ua.od.onpu.crm.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import ua.od.onpu.crm.dao.model.Child;
 import ua.od.onpu.crm.dao.model.Customer;
 import ua.od.onpu.crm.dao.model.Deal;
@@ -128,8 +129,9 @@ public class DealServiceImpl implements DealService {
     }
 
     @Override
-    public List<DealDto> getFilteredDeal(String status, Integer expeditionId) {
-        return dealRepository.getFilteredDeal(status, expeditionId)
+    public List<DealDto> getFilteredDeal(String status, Integer expeditionId,
+                                         String employeeName, String customerName, String childName) {
+        return dealRepository.getFilteredDeal(status, expeditionId, employeeName, customerName, childName)
                 .stream()
                 .map(this::buildToDto)
                 .collect(Collectors.toList());

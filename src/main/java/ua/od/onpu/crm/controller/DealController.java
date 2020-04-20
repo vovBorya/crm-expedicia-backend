@@ -112,13 +112,18 @@ public class DealController {
         return response;
     }
 
-    @GetMapping(params = {"status", "expeditionId"})
+    @GetMapping(params = {"status", "expeditionId", "employeeName", "customerName", "childName"})
     @ResponseBody
     @ResponseStatus(code = HttpStatus.OK)
     public List<DealDto> getDealByFilters(@RequestParam String status,
-                                          @RequestParam Integer expeditionId) {
-        List<DealDto> response = dealService.getFilteredDeal(status, expeditionId);
-        log.info("GET deal by filter = status - {}, expeditionId - {}: {}", status, expeditionId, response);
+                                          @RequestParam Integer expeditionId,
+                                          @RequestParam String employeeName,
+                                          @RequestParam String customerName,
+                                          @RequestParam String childName) {
+        List<DealDto> response = dealService.getFilteredDeal(status, expeditionId, employeeName, customerName, childName);
+        log.info("GET deal by filter = status - {}, expeditionId - {}, " +
+                        "employeeName - {}, customerName - {}, childName - {}: {}",
+                status, expeditionId, employeeName, customerName, childName, response);
         return response;
     }
 }
