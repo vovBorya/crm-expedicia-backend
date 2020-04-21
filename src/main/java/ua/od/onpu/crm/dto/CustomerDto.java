@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ua.od.onpu.crm.dao.model.enums.CustomerS;
+import ua.od.onpu.crm.dao.model.enums.CustomerStatus;
 
 @Data
 @NoArgsConstructor
@@ -24,7 +24,7 @@ public class CustomerDto {
 
     private String city;
 
-    private CustomerS status;
+    private CustomerStatus status;
 
     private String exemptions;
 }

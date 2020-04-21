@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ua.od.onpu.crm.dao.model.enums.CustomerS;
+import ua.od.onpu.crm.dao.model.enums.CustomerStatus;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -51,7 +51,7 @@ public class Customer {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private CustomerS status;
+    private CustomerStatus status;
 
     @Column(name = "exemptions")
     private String exemptions;
