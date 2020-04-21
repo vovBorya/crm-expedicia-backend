@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ua.od.onpu.crm.config.GlobalConfig;
+import ua.od.onpu.crm.dao.model.enums.ChildStatus;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -50,7 +51,8 @@ public class Child {
     private String city;
 
     @Column(name = "status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private ChildStatus status;
 
     @OneToMany(
             mappedBy = "child",

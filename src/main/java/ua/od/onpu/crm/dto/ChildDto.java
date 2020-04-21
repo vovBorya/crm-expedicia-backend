@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ua.od.onpu.crm.config.GlobalConfig;
+import ua.od.onpu.crm.dao.model.enums.ChildStatus;
 
 import java.time.LocalDate;
 
@@ -32,7 +33,7 @@ public class ChildDto {
 
     private String city;
 
-    private String status;
+    private ChildStatus status;
 
     private Integer parentId;
 }

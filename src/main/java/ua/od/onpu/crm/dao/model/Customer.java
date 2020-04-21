@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import ua.od.onpu.crm.dao.model.enums.CustomerS;
 
 import javax.persistence.*;
 import java.util.List;
@@ -37,7 +38,8 @@ public class Customer {
     private String city;
 
     @Column(name = "status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private CustomerS status;
 
     @Column(name = "exemptions")
     private String exemptions;

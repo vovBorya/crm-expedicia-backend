@@ -1,6 +1,6 @@
 package ua.od.onpu.crm.dao.model.enums;
 
-public enum CustomerStatus {
+public enum CustomerS { //CustomerStatus
     PARENT,
     INSTRUCTOR,
     VOLUNTEER;
