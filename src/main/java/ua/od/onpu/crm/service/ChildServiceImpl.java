@@ -62,7 +62,10 @@ public class ChildServiceImpl implements ChildService {
         child.setLastName(childDto.getLastName());
         child.setFirstName(childDto.getFirstName());
         child.setPatronymic(childDto.getPatronymic());
+        child.setPoints(childDto.getPoints());
         child.setBirthday(childDto.getBirthday());
+        child.setCity(childDto.getCity());
+        child.setStatus(childDto.getStatus());
         child.setParent(parent);
         Child response = childRepository.save(child);
         return buildToDto(response);
@@ -105,7 +108,10 @@ public class ChildServiceImpl implements ChildService {
                 .lastName(child.getLastName())
                 .patronymic(child.getPatronymic())
                 .fullName(nameProvider.getFullName(child.getLastName(), child.getFirstName(), child.getPatronymic()))
+                .points(child.getPoints())
                 .birthday(child.getBirthday())
+                .city(child.getCity())
+                .status(child.getStatus())
                 .parentId(child.getParent() != null ? child.getParent().getId() : null)
                 .build();
     }
@@ -115,7 +121,10 @@ public class ChildServiceImpl implements ChildService {
                 .firstName(dto.getFirstName())
                 .lastName(dto.getLastName())
                 .patronymic(dto.getPatronymic())
+                .points(dto.getPoints())
                 .birthday(dto.getBirthday())
+                .city(dto.getCity())
+                .status(dto.getStatus())
                 .build();
         if (dto.getParentId() != null) {
             child.setParent(findCustomerById(dto.getParentId()));

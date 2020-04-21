@@ -43,6 +43,15 @@ public class Deal {
     @Enumerated(EnumType.STRING)
     private DealStatus status;
 
+    @Column(name = "discount")
+    private String discount;
+
+    @Column(name = "departure_place")
+    private String departurePlace;
+
+    @Column(name = "transportation_way")
+    private String transportationWay;
+
     @Column(name = "comment")
     private String comment;
 
