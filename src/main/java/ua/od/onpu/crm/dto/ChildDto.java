@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ua.od.onpu.crm.config.GlobalConfig;
+import ua.od.onpu.crm.dao.model.enums.ChildStatus;
 
 import java.time.LocalDate;
 
@@ -25,10 +26,16 @@ public class ChildDto {
 
     private String fullName;
 
+    private String points;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = GlobalConfig.DATE_FORMAT_PATTERN)
     private LocalDate birthday;
 
     private Integer age;
+    
+    private String city;
+
+    private ChildStatus status;
 
     private Integer parentId;
 }
