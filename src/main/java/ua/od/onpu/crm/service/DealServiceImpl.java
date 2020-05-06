@@ -130,9 +130,9 @@ public class DealServiceImpl implements DealService {
 
     @Override
     public List<DealDto> getFilteredDeal(String status, Integer expeditionId, Integer startSum, Integer endSum,
-                                         String employeeName, String customerName, String childName) {
+                                         Integer employeeId, Integer customerId, Integer childId, String sleepingBag) {
         return dealRepository.getFilteredDeal(status, expeditionId, startSum, endSum,
-                employeeName, customerName, childName)
+                employeeId, customerId, childId, sleepingBag)
                 .stream()
                 .map(this::buildToDto)
                 .collect(Collectors.toList());
