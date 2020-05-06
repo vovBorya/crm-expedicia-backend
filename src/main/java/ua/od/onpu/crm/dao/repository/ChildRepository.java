@@ -15,15 +15,10 @@ public interface ChildRepository extends CrudRepository<Child, Integer> {
             "SELECT * FROM children " +
                     "WHERE CONCAT_WS(' ', last_name, first_name, patronymic) LIKE :fullName " +
                     "AND year(curdate()) - year(birth_day) between :startAge and :endAge " +
-                    "AND CASE " +
-                        "WHEN :age is NULL THEN true " +
-                        "ELSE year(curdate()) - year(birth_day) = :age " +
-                    "END " +
-                    "AND CASE " +
-                        "WHEN :parentId is NULL THEN true " +
-                        "ELSE parent_id = :parentId " +
-                    "END", nativeQuery = true)
-    List<Child> getFilteredChildren(@Param("fullName") String fullName, @Param("startAge") Integer startAge,
-                                    @Param("endAge") Integer endAge, @Param("age") Integer age,
+                    "AND IF(:parentId is NULL, true, parent_id = :parentId)",
+            nativeQuery = true)
+    List<Child> getFilteredChildren(@Param("fullName") String fullName,
+                                    @Param("startAge") Integer startAge,
+                                    @Param("endAge") Integer endAge,
                                     @Param("parentId") Integer parentId);
 }

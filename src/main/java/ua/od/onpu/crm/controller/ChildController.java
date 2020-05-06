@@ -85,17 +85,16 @@ public class ChildController {
         return response;
     }
 
-    @GetMapping(params = {"fullName", "ageBetween", "age", "parentId"})
+    @GetMapping(params = {"fullName", "ageBetween", "parentId"})
     @ResponseBody
     @ResponseStatus(code = HttpStatus.OK)
     public List<ChildDto> getChildrenByParent(@RequestParam String fullName,
                                               @RequestParam(defaultValue = "0,100") String[] ageBetween,
-                                              @RequestParam Integer age,
                                               @RequestParam Integer parentId) {
         List<ChildDto> response = childService.getFilteredChildren(fullName, Integer.parseInt(ageBetween[0]),
-                Integer.parseInt(ageBetween[1]), age, parentId);
-        log.info("GET children by filter = fullName - {}, ageBetween - {}, age - {}, parentId - {}: {}",
-                fullName, ageBetween, parentId, age, response);
+                Integer.parseInt(ageBetween[1]), parentId);
+        log.info("GET children by filter = fullName - {}, ageBetween - {}, parentId - {}: {}",
+                fullName, ageBetween, parentId, response);
         return response;
     }
 }

@@ -87,8 +87,8 @@ public class ChildServiceImpl implements ChildService {
     }
 
     @Override
-    public List<ChildDto> getFilteredChildren(String fullName, Integer startAge, Integer endAge, Integer age, Integer parentId) {
-        return childRepository.getFilteredChildren(fullName, startAge, endAge + 1, age != null ? age + 1 : null, parentId)
+    public List<ChildDto> getFilteredChildren(String fullName, Integer startAge, Integer endAge, Integer parentId) {
+        return childRepository.getFilteredChildren(fullName, startAge, endAge + 1, parentId)
                 .stream()
                 .map(this::buildToDto)
                 .collect(Collectors.toList());
