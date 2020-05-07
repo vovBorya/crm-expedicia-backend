@@ -3,11 +3,13 @@ package ua.od.onpu.crm.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import ua.od.onpu.crm.dao.model.Child;
 import ua.od.onpu.crm.dao.model.Customer;
 import ua.od.onpu.crm.dao.model.Deal;
 import ua.od.onpu.crm.dao.model.Employee;
 import ua.od.onpu.crm.dao.model.Expedition;
+import ua.od.onpu.crm.dao.model.enums.DealStatus;
 import ua.od.onpu.crm.dao.repository.ChildRepository;
 import ua.od.onpu.crm.dao.repository.CustomerRepository;
 import ua.od.onpu.crm.dao.repository.DealRepository;
@@ -124,6 +126,16 @@ public class DealServiceImpl implements DealService {
     @Override
     public List<DealDto> getDealsByExpedition(Integer expeditionId) {
         return dealRepository.findAllByExpeditionId(expeditionId)
+                .stream()
+                .map(this::buildToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<DealDto> getFilteredDeal(String status, Integer expeditionId, Integer startSum, Integer endSum,
+                                         Integer employeeId, Integer customerId, Integer childId, String sleepingBag) {
+        return dealRepository.getFilteredDeal(status, expeditionId, startSum, endSum,
+                employeeId, customerId, childId, sleepingBag)
                 .stream()
                 .map(this::buildToDto)
                 .collect(Collectors.toList());
