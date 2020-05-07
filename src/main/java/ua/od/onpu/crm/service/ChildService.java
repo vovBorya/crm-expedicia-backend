@@ -18,4 +18,5 @@ public interface ChildService {
 
     List<ChildDto> getChildrenByParent(Integer parentId);
 
+    List<ChildDto> getFilteredChildren(String fullName, Integer startAge, Integer endAge, Integer parentId);
 }

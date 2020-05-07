@@ -31,6 +31,8 @@ public class ChildDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = GlobalConfig.DATE_FORMAT_PATTERN)
     private LocalDate birthday;
 
+    private Integer age;
+    
     private String city;
 
     private ChildStatus status;
