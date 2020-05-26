@@ -1,20 +1,36 @@
 package ua.od.onpu.crm.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import ua.od.onpu.crm.dao.model.security.JwtRequestFilter;
+import ua.od.onpu.crm.service.MyUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    MyUserDetailsService userDetailsService;
+
+    @Autowired
+    JwtRequestFilter filter;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests()
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/auth").permitAll()
                 .antMatchers(
                         "/api/children/**",
                         "/api/contacts/**",
@@ -24,20 +40,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/payments/**").hasAnyRole("ADMIN", "MANAGER")
                 .antMatchers(HttpMethod.GET, "/api/employees/**").hasAnyRole("ADMIN", "MANAGER")
                 .antMatchers("/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
-                .and().formLogin()
-                .and().logout().logoutSuccessUrl("/login");
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("admin")
-                .password("{bcrypt}$2y$12$4ZJh/6rKkvwJVcz4eV1uh.ns8q0U0bVgkvAWzjDPjXlBEMRvQBZc6")
-                .roles("ADMIN")
-                .and()
-                .withUser("manager")
-                .password("{bcrypt}$2y$12$AD0/Suz8az.7EWmhxQZui.YMBM8Pq4B/c9CYg06I/h/s03c/330Km")
-                .roles("MANAGER");
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService);
+    }
+
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
