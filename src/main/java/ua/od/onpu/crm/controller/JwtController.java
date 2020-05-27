@@ -25,7 +25,7 @@ public class JwtController {
     @Autowired
     MyUserDetailsService userDetailsService;
 
-    @PostMapping(value = "/auth")
+    @PostMapping(value = "/api/auth")
     public ResponseEntity<?> createAuthToken(@RequestBody AuthRequest request) throws BadCredentialsException {
         try {
             authManager.authenticate(
